@@ -9,9 +9,15 @@ class squid::params {
 
   $access_log                    = undef
   $acls                          = undef
+  $append_domain                 = undef
   $auth_params                   = undef
+  $cache                         = undef
   $cache_dirs                    = undef
+  $cache_effective_group         = undef
+  $cache_effective_user          = undef
+  $cache_log                     = undef
   $cache_mem                     = undef
+  $cache_mgr                     = undef
   $coredump_dir                  = undef
   $http_access                   = undef
   $http_ports                    = undef
@@ -25,6 +31,8 @@ class squid::params {
   $snmp_ports                    = undef
   $ssl_bump                      = undef
   $sslproxy_cert_error           = undef
+  $via                           = undef
+  $visible_hostname              = undef
   $workers                       = undef
 
   case $::operatingsystem {

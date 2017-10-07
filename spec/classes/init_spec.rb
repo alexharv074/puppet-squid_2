@@ -1,5 +1,6 @@
 require 'spec_helper'
 describe 'squid' do
+  readme_checked = false
   on_supported_os.each do |os, facts|
     context "on #{os}" do
       let(:facts) do
@@ -61,39 +62,75 @@ describe 'squid' do
             it { is_expected.to contain_concat_fragment('squid_header').without_content(%r{^access_log}) }
           end
         end
+        it { is_expected.to contain_concat_fragment('squid_header').without_content(%r{^append_domain}) }
+        it { is_expected.to contain_concat_fragment('squid_header').without_content(%r{^cache\s+}) }
+        it { is_expected.to contain_concat_fragment('squid_header').without_content(%r{^cache_log}) }
         it { is_expected.to contain_concat_fragment('squid_header').without_content(%r{^cache_mem}) }
+        it { is_expected.to contain_concat_fragment('squid_header').without_content(%r{^cache_mgr}) }
+        it { is_expected.to contain_concat_fragment('squid_header').without_content(%r{^cache_effective_group}) }
+        it { is_expected.to contain_concat_fragment('squid_header').without_content(%r{^cache_effective_user}) }
         it { is_expected.to contain_concat_fragment('squid_header').without_content(%r{^maximum_object_size_in_memory}) }
         it { is_expected.to contain_concat_fragment('squid_header').without_content(%r{^memory_cache_shared}) }
         it { is_expected.to contain_concat_fragment('squid_header').without_content(%r{^coredump_dir}) }
         it { is_expected.to contain_concat_fragment('squid_header').without_content(%r{^max_filedescriptors}) }
+        it { is_expected.to contain_concat_fragment('squid_header').without_content(%r{^via}) }
+        it { is_expected.to contain_concat_fragment('squid_header').without_content(%r{^visible_hostname}) }
         it { is_expected.to contain_concat_fragment('squid_header').without_content(%r{^workers}) }
       end
 
       context 'with all parameters set' do
-        let :params do
-          {
-            config: '/tmp/squid.conf',
-            access_log: '/var/log/out.log',
-            cache_mem: '1024 MB',
-            coredump_dir: '/tmp/core',
-            logformat: 'squid %tl.%03tu %6tr %>a %Ss/%03Hs',
-            max_filedescriptors: 1000,
-            memory_cache_shared: 'on',
-            workers: 8
-          }
-        end
+        params = {
+          config: '/tmp/squid.conf',
+          append_domain: '.example.com',
+          access_log: '/var/log/out.log',
+          cache: 'deny all',
+          cache_effective_group: 'squid',
+          cache_effective_user: 'squid',
+          cache_log: '/var/log/cache.log',
+          cache_mem: '1024 MB',
+          cache_mgr: 'webmaster@example.com',
+          coredump_dir: '/tmp/core',
+          logformat: 'squid %tl.%03tu %6tr %>a %Ss/%03Hs',
+          max_filedescriptors: 1000,
+          memory_cache_shared: 'on',
+          via: 'off',
+          visible_hostname: 'myhost.example.com',
+          workers: 8
+        }
+        let(:params) { params }
 
         it { is_expected.to contain_concat_fragment('squid_header').with_target('/tmp/squid.conf') }
+
+        it { is_expected.to contain_concat_fragment('squid_header').with_content(%r{^append_domain                 .example.com$}) }
         it { is_expected.to contain_concat_fragment('squid_header').with_content(%r{^access_log                    /var/log/out.log$}) }
+        it { is_expected.to contain_concat_fragment('squid_header').with_content(%r{^cache                         deny all$}) }
+        it { is_expected.to contain_concat_fragment('squid_header').with_content(%r{^cache_effective_group         squid$}) }
+        it { is_expected.to contain_concat_fragment('squid_header').with_content(%r{^cache_effective_user          squid$}) }
+        it { is_expected.to contain_concat_fragment('squid_header').with_content(%r{^cache_log                     /var/log/cache.log$}) }
         it { is_expected.to contain_concat_fragment('squid_header').with_content(%r{^cache_mem                     1024 MB$}) }
         it { is_expected.to contain_concat_fragment('squid_header').with_content(%r{^coredump_dir                  /tmp/core$}) }
         it { is_expected.to contain_concat_fragment('squid_header').with_content(%r{^logformat                     squid %tl.%03tu %6tr %>a %Ss/%03Hs$}) }
         it { is_expected.to contain_concat_fragment('squid_header').with_content(%r{^max_filedescriptors           1000$}) }
         it { is_expected.to contain_concat_fragment('squid_header').with_content(%r{^memory_cache_shared           on$}) }
+        it { is_expected.to contain_concat_fragment('squid_header').with_content(%r{^via                           off$}) }
+        it { is_expected.to contain_concat_fragment('squid_header').with_content(%r{^visible_hostname              myhost.example.com$}) }
         it { is_expected.to contain_concat_fragment('squid_header').with_content(%r{^workers                       8$}) }
+
+        unless readme_checked
+          it 'README should be updated' do
+            content = File.read('README.md')
+            params.keys.each do |p|
+              unless content =~ /^\* \`#{p}\`.*\.$/
+                puts "      Parameter #{p} not found or formatted correctly in README.md"
+              end
+              expect(content).to match /^\* \`#{p}\`.*\.$/
+            end
+          end
+          readme_checked = true
+        end
       end
 
-      context 'with memory_cache_shared parameter set to true' do
+      context 'with memory_cache_shared parameter set to a boolean' do
         let :params do
           {
             config: '/tmp/squid.conf',
