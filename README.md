@@ -39,29 +39,38 @@ Parameters to the squid class almost map 1 to 1 to squid.conf parameters themsel
 * `ensure_service` The ensure value of the squid service, defaults to `running`.
 * `enable_service` The enable value of the squid service, defaults to `true`.
 * `config` Location of squid.conf file, defaults to `/etc/squid/squid.conf`.
-* `config_user` user which owns the config file, default depends on `$operatingsystem`
-* `config_group` group which owns the config file, default depends on `$operatingsystem`
-* `daemon_user` user which runs the squid daemon, this is used for ownership of the cache directory, default depends on `$operatingsystem`
-* `daemon_group` group which runs the squid daemon, this is used for ownership of the cache directory, default depends on `$operatingsystem`
-* `package_name` name of the squid package to manage, default depends on `$operatingsystem`
-* `service_name` name of the squid service to manage, default depends on `$operatingsystem`
+* `config_user` user which owns the config file, default depends on `$operatingsystem`.
+* `config_group` group which owns the config file, default depends on `$operatingsystem`.
+* `daemon_user` user which runs the squid daemon, this is used for ownership of the cache directory, default depends on `$operatingsystem`.
+* `daemon_group` group which runs the squid daemon, this is used for ownership of the cache directory, default depends on `$operatingsystem`.
+* `package_name` name of the squid package to manage, default depends on `$operatingsystem`.
+* `service_name` name of the squid service to manage, default depends on `$operatingsystem`.
 
-* `access_log` defaults to undef. [access_log docs](http://www.squid-cache.org/Doc/config/access_log/)
+* `access_log` defaults to undef. [access_log docs](http://www.squid-cache.org/Doc/config/access_log/).
 * `acls` defaults to undef. If you pass in a hash of acl entries, they will be defined automatically. [acl entries](http://www.squid-cache.org/Doc/config/acl/).
+* `append_domain` defaults to undef. [acl entries](http://www.squid-cache.org/Doc/config/append_domain/).
+* `cache` defaults to undef. [cache docs](http://www.squid-cache.org/Doc/config/cache/).
 * `cache_dirs` defaults to undef. If you pass in a hash of cache_dir entries, they will be defined automatically. [cache_dir entries](http://www.squid-cache.org/Doc/config/cache_dir/).
+* `cache_effective_group` defaults to undef. [cache_effective_group docs](http://www.squid-cache.org/Doc/config/cache_effective_group/).
+* `cache_effective_user` defaults to undef. [cache_effective_user docs](http://www.squid-cache.org/Doc/config/cache_effective_user/).
+* `cache_log` defaults to undef. [cache_log docs](http://www.squid-cache.org/Doc/config/cache_log/).
 * `cache_mem` defaults to undef. [cache_mem docs](http://www.squid-cache.org/Doc/config/cache_mem/).
+* `cache_mgr` defaults to undef. [cache_mgr docs](http://www.squid-cache.org/Doc/config/cache_mgr/).
 * `coredump_dir` defaults to undef. [coredump_dir docs](http://www.squid-cache.org/Doc/config/coredump_dir/).
 * `http_access` defaults to undef. If you pass in a hash of http_access entries, they will be defined automatically. [http_access entries](http://www.squid-cache.org/Doc/config/http_access/).
 * `http_ports` defaults to undef. If you pass in a hash of http_port entries, they will be defined automatically. [http_port entries](http://www.squid-cache.org/Doc/config/http_port/).
 * `https_ports` defaults to undef. If you pass in a hash of https_port entries, they will be defined automatically. [https_port entries](http://www.squid-cache.org/Doc/config/https_port/).
 * `icp_access` defaults to undef. If you pass in a hash of icp_access entries, they will be defined automatically. [icp_access entries](http://www.squid-cache.org/Doc/config/icp_access/).
+* `logformat` defaults to undef. [logformat docs](http://www.squid-cache.org/Doc/config/logformat/).
 * `max_filedescriptors` defaults to undef. [max_filedescriptors docs](http://www.squid-cache.org/Doc/config/max_filedescriptors/).
-* `maximum_object_size_in_memory` defaults to undef. [maximum_object_size_in_memory docs](http://www.squid-cache.org/Doc/config/maximum_object_size_in_memory/)
+* `maximum_object_size_in_memory` defaults to undef. [maximum_object_size_in_memory docs](http://www.squid-cache.org/Doc/config/maximum_object_size_in_memory/).
 * `memory_cache_shared` defaults to undef. [memory_cache_shared docs](http://www.squid-cache.org/Doc/config/memory_cache_shared/).
 * `refresh_patterns` defaults to undef.  If you pass a hash of refresh_pattern entires, they will be defined automatically. [refresh_pattern entries](http://www.squid-cache.org/Doc/config/refresh_pattern/).
 * `snmp_ports` defaults to undef. If you pass in a hash of snmp_port entries, they will be defined automatically. [snmp_port entries](http://www.squid-cache.org/Doc/config/snmp_port/).
 * `ssl_bump` defaults to undef. If you pass in a hash of ssl_bump entries, they will be defined automatically. [ssl_bump entries](http://www.squid-cache.org/Doc/config/ssl_bump/).
 * `sslproxy_cert_error` defaults to undef. If you pass in a hash of sslproxy_cert_error entries, they will be defined automatically. [sslproxy_cert_error entries](http://www.squid-cache.org/Doc/config/sslproxy_cert_error/).
+* `via` defaults to undef. [via docs](http://www.squid-cache.org/Doc/config/via/).
+* `visible_hostname` defaults to undef. [visible_hostname docs](http://www.squid-cache.org/Doc/config/visible_hostname/).
 * `workers` defaults to undef. [workers docs](http://www.squid-cache.org/Doc/config/workers/).
 * `extra_config_sections` defaults to empty hash. If you pass in a hash of `extra_config_section` resources, they will be defined automatically.
 

@@ -5,8 +5,26 @@
 <% if @access_log -%>
 access_log                    <%= @access_log %>
 <% end -%>
+<% if @append_domain -%>
+append_domain                 <%= @append_domain %>
+<% end -%>
+<% if @cache -%>
+cache                         <%= @cache %>
+<% end -%>
+<% if @cache_effective_user -%>
+cache_effective_user          <%= @cache_effective_user %>
+<% end -%>
+<% if @cache_effective_group -%>
+cache_effective_group         <%= @cache_effective_group %>
+<% end -%>
 <% if @cache_mem -%>
 cache_mem                     <%= @cache_mem %>
+<% end -%>
+<% if @cache_log -%>
+cache_log                     <%= @cache_log %>
+<% end -%>
+<% if @cache_mgr -%>
+cache_mgr                     <%= @cache_mgr %>
 <% end -%>
 <% if @coredump_dir -%>
 coredump_dir                  <%= @coredump_dir %>
@@ -22,6 +40,12 @@ maximum_object_size_in_memory <%= @maximum_object_size_in_memory %>
 <% end -%>
 <% if @memory_cache_shared -%>
 memory_cache_shared           <%= @memory_cache_shared %>
+<% end -%>
+<% if @via -%>
+via                           <%= @via %>
+<% end -%>
+<% if @visible_hostname -%>
+visible_hostname              <%= @visible_hostname %>
 <% end -%>
 <% if @workers -%>
 workers                       <%= @workers %>
